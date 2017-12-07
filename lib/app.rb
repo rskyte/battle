@@ -19,15 +19,12 @@ class Battle < Sinatra::Base
     erb(:play)
   end
 
-  post '/attack1' do
-    session[:message] = "#{$player1.name} has attacked #{$player2.name}!"
-    $player2.reduce_hp(10)
-    redirect '/play'
-  end
-
-  post '/attack2' do
-    session[:message] = "#{$player2.name} has attacked #{$player1.name}!"
-    $player1.reduce_hp(10)
+  post '/attack' do
+    attack_process = Proc.new do |first_p, second_p|
+      session[:message] = "#{first_p.name} has attacked #{second_p.name}!"
+      second_p.reduce_hp(10)
+    end
+    params[:attack] == $player1.name ? attack_process.call($player1, $player2) : attack_process.call($player2, $player1)
     redirect '/play'
   end
 

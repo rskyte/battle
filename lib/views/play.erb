@@ -6,13 +6,13 @@
 </h2>
 
 <%= @player_1_name %> HP: <%= @player_1_HP %> <br>
-<form action='/attack1' method='post'>
-  <button type='submit' value='Attack P1'>Attack P1</button> <br>
+<form action='/attack' method='post'>
+  <button type='submit' value='<%= @player_1_name %>' name='attack'>Attack P1</button> <br>
 </form>
 
 <%= @player_2_name %>  HP: <%= @player_2_HP %> <br>
-<form action='/attack2' method='post'>
-  <button type='submit' value='Attack P2'>Attack P2</button> <br>
+<form action='/attack' method='post'>
+  <button type='submit' value='<%= @player_2_name %>' name='attack'>Attack P2</button> <br>
 </form>
 
 <% if !!@message %>
