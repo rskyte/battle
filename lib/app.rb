@@ -1,10 +1,9 @@
 require 'sinatra/base'
 require_relative 'player'
+require_relative 'game'
 
 class Battle < Sinatra::Base
   enable :sessions
-  #set :session_secret, 'sesh'
-  STARTING_HP = 60
 
   get '/' do
     erb(:index)
@@ -22,7 +21,7 @@ class Battle < Sinatra::Base
   post '/attack' do
     attack_process = Proc.new do |first_p, second_p|
       session[:message] = "#{first_p.name} has attacked #{second_p.name}!"
-      second_p.reduce_hp(10)
+      Game.new.attack(second_p)
     end
     params[:attack] == $player1.name ? attack_process.call($player1, $player2) : attack_process.call($player2, $player1)
     redirect '/play'
