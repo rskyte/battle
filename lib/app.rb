@@ -20,14 +20,14 @@ class Battle < Sinatra::Base
   end
 
   post '/attack1' do
-    session[:message] = 'Player 1 has attacked Player 2!'
+    session[:message] = "#{$player1.name} has attacked #{$player2.name}!"
     $player2.reduce_hp(10)
     redirect '/play'
   end
 
   post '/attack2' do
-    session[:message] = 'Player 2 has attacked Player 1!'
-
+    session[:message] = "#{$player2.name} has attacked #{$player1.name}!"
+    $player1.reduce_hp(10)
     redirect '/play'
   end
 
