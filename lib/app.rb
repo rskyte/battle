@@ -14,13 +14,17 @@ class Battle < Sinatra::Base
     redirect '/play'
   end
 
+  get '/lose' do
+    @game_over_message = session[:game_over]
+    erb(:lose)
+  end
+
   before do
     @game = Game.get_game
   end
 
   get '/play' do
     @message = session[:message]
-    @game_over_message = session[:game_over]
     erb(:play)
   end
 
@@ -30,7 +34,10 @@ class Battle < Sinatra::Base
       @game.attack(second_p)
     end
     params[:attack] == @game.player1.name ? attack_process.call(@game.player1, @game.player2) : attack_process.call(@game.player2, @game.player1)
-    session[:game_over] = "#{@game.game_over.name} Loses!" if @game.game_over
+    if @game.game_over
+      session[:game_over] = "#{@game.game_over.name} Loses!"
+      redirect '/lose'
+    end
     redirect '/play'
   end
 
