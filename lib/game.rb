@@ -22,4 +22,10 @@ class Game
     @turn == 'p1' ? @turn = 'p2' : @turn = 'p1'
   end
 
+  def game_over
+    return @player1 if @player1.hp < 1
+    return @player2 if @player2.hp < 1
+    nil
+  end
+
 end

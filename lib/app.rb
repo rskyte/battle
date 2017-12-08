@@ -28,7 +28,7 @@ class Battle < Sinatra::Base
       @game.attack(second_p)
     end
     params[:attack] == @game.player1.name ? attack_process.call(@game.player1, @game.player2) : attack_process.call(@game.player2, @game.player1)
-    session[:game_over] = "#{@game.player2.name} Loses!" if @game.player2.hp < 1
+    session[:game_over] = "#{@game.game_over.name} Loses!" if @game.game_over
     redirect '/play'
   end
 
