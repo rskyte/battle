@@ -14,15 +14,17 @@ class Battle < Sinatra::Base
     redirect '/play'
   end
 
+  before do
+    @game = Game.get_game
+  end
+
   get '/play' do
     @message = session[:message]
     @game_over_message = session[:game_over]
-    @game = Game.get_game
     erb(:play)
   end
 
   post '/attack' do
-    @game = Game.get_game
     attack_process = Proc.new do |first_p, second_p|
       session[:message] = "#{first_p.name} has attacked #{second_p.name}!"
       @game.attack(second_p)
