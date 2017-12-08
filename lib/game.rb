@@ -7,6 +7,8 @@ class Game
   attr_accessor :player1, :player2
   attr_reader :turn
 
+  # @game = Game.new
+
   def initialize(player1, player2)
     @player1 = player1
     @player2 = player2
@@ -26,6 +28,14 @@ class Game
     return @player1 if @player1.hp < 1
     return @player2 if @player2.hp < 1
     nil
+  end
+
+  def self.get_game
+    @game
+  end
+
+  def self.create_game(player1, player2)
+    @game = Game.new(player1, player2)
   end
 
 end

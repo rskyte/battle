@@ -10,19 +10,19 @@ class Battle < Sinatra::Base
   end
 
   post '/names' do
-    $game = Game.new(Player.new(params[:player_1_name]), Player.new(params[:player_2_name]))
+    Game.create_game(Player.new(params[:player_1_name]), Player.new(params[:player_2_name]))
     redirect '/play'
   end
 
   get '/play' do
     @message = session[:message]
     @game_over_message = session[:game_over]
-    @game = $game
+    @game = Game.get_game
     erb(:play)
   end
 
   post '/attack' do
-    @game = $game
+    @game = Game.get_game
     attack_process = Proc.new do |first_p, second_p|
       session[:message] = "#{first_p.name} has attacked #{second_p.name}!"
       @game.attack(second_p)
