@@ -8,6 +8,7 @@ feature 'attacking' do
 
   scenario 'player 2 can launch an attack and receive a confirmation' do
     sign_in_and_play
+    click_button(@button_id = "first")
     click_button(@button_id = "second")
     expect(page).to have_content 'Jim has attacked Jeff!'
   end
@@ -19,6 +20,7 @@ feature 'attacking' do
 
   scenario 'reduces p1 hitpoints by 10 when p2 attacks' do
     sign_in_and_play
+    click_button(@button_id = "first")
     expect { click_button(@button_id = "second") }.to change { $game.player1.hp }.by (-10)
   end
 

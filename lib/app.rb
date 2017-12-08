@@ -16,6 +16,7 @@ class Battle < Sinatra::Base
 
   get '/play' do
     @message = session[:message]
+    @game_over_message = session[:game_over]
     @game = $game
     erb(:play)
   end
@@ -27,6 +28,7 @@ class Battle < Sinatra::Base
       @game.attack(second_p)
     end
     params[:attack] == @game.player1.name ? attack_process.call(@game.player1, @game.player2) : attack_process.call(@game.player2, @game.player1)
+    session[:game_over] = "#{@game.player2.name} Loses!" if @game.player2.hp < 1
     redirect '/play'
   end
 

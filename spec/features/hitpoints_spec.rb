@@ -1,4 +1,3 @@
-
 feature 'hitpoints' do
 
   scenario 'Will show player hitpoints' do
